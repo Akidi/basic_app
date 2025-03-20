@@ -68,22 +68,22 @@ GRANT CREATE ON DATABASE webapp TO admin, developer;
 GRANT CONNECT, TEMPORARY ON DATABASE webapp TO admin, developer, api, read_only, backup, auditor;
 
 -- 4. Create Default Login Users and Associate with Roles
-CREATE ROLE app_admin LOGIN PASSWORD 'admin_p@55w0rd';
+CREATE ROLE app_admin LOGIN PASSWORD 'admin_pa55w0rd';
 GRANT admin TO app_admin;
 
-CREATE ROLE app_developer LOGIN PASSWORD 'developer_p@55w0rd';
+CREATE ROLE app_developer LOGIN PASSWORD 'developer_pa55w0rd';
 GRANT developer TO app_developer;
 
-CREATE ROLE app_api LOGIN PASSWORD 'api_p@55w0rd';
+CREATE ROLE app_api LOGIN PASSWORD 'api_pa55w0rd';
 GRANT api TO app_api;
 
-CREATE ROLE app_readonly LOGIN PASSWORD 'readonly_p@55w0rd';
+CREATE ROLE app_readonly LOGIN PASSWORD 'readonly_pa55w0rd';
 GRANT read_only TO app_readonly;
 
-CREATE ROLE app_backup LOGIN PASSWORD 'backup_p@55w0rd';
+CREATE ROLE app_backup LOGIN PASSWORD 'backup_pa55w0rd';
 GRANT backup TO app_backup;
 
-CREATE ROLE app_auditor LOGIN PASSWORD 'auditor_p@55w0rd';
+CREATE ROLE app_auditor LOGIN PASSWORD 'auditor_pa55w0rd';
 GRANT auditor TO app_auditor;
 
 -- 6. Event Trigger for Dynamic Schema Privileges
