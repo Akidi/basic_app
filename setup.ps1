@@ -27,10 +27,9 @@ $users = @(
 $devPasswords = @{}
 $prodPasswords = @{}
 
-# Generate passwords (dev: 8-16 chars, prod: 32 chars)
+# Generate passwords (dev: 8 chars, prod: 32 chars)
 foreach ($user in $users) {
-    $devLength = Get-Random -Minimum 8 -Maximum 17  # 8-16 chars (max 16 + 1 for range)
-    $devPasswords[$user.Name] = New-RandomPassword -Length $devLength -CharSet $devCharSet
+    $devPasswords[$user.Name] = New-RandomPassword -Length 8 -CharSet $devCharSet
     $prodPasswords[$user.Name] = New-RandomPassword -Length 32 -CharSet $prodCharSet
 }
 
@@ -75,7 +74,7 @@ $envProdContent = $envProdContent -replace "READ_DATABASE_URL=.*", "READ_DATABAS
 Set-Content -Path "./.env.prod" -Value $envProdContent
 
 # Display generated passwords
-Write-Host "Development Passwords (8-16 chars):" -ForegroundColor Green
+Write-Host "Development Passwords (8 chars):" -ForegroundColor Green
 foreach ($user in $users) {
     Write-Host "$($user.Name): $($devPasswords[$user.Name])" -ForegroundColor Yellow
 }
