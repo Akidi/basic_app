@@ -1,7 +1,7 @@
 services:
   app:
-    image: app
-    container_name: app
+    image: app:prod
+    container_name: app.prod
     build:
       context: ./app
     ports:
