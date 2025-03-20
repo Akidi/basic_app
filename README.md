@@ -11,22 +11,22 @@ A SvelteKit application with a PostgreSQL database, powered by Drizzle ORM for m
 
 ### Steps
 1. **Clone the Repository**
-   [cb]
+   ```
    git clone <your-repo-url>
    cd <your-repo-name>
-   [/cb]
+   ```
 
 2. **Run Setup Script**
    - On Windows, execute the PowerShell script to configure environment files and database users:
-     [cb]
+     ```
      . ./setup.ps1
-     [/cb]
+     ```
    - This copies example files, generates random passwords (8-16 chars for dev), updates `init.dev.sql` and `.env` files, and displays the passwords.
 
 3. **Start Development Environment**
-   [cb]
+   ```
    docker-compose up --build -d
-   [/cb]
+   ```
    - Access the app at `http://localhost:5173`.
    - Runs migrations and starts the Vite dev server.
 
@@ -34,22 +34,22 @@ A SvelteKit application with a PostgreSQL database, powered by Drizzle ORM for m
 
 ### Steps
 1. **Clone the Repository** (if not already done)
-   [cb]
+   ```
    git clone <your-repo-url>
    cd <your-repo-name>
-   [/cb]
+   ```
 
 2. **Run Setup Script**
    - Execute the same script as dev:
-     [cb]
+     ```
      . ./setup.ps1
-     [/cb]
+     ```
    - Generates 32-char passwords for prod, updates `init.prod.sql` and `.env.prod`, and shows them.
 
 3. **Start Production Environment**
-   [cb]
+   ```
    docker-compose -f docker-compose.prod.yml up --build -d
-   [/cb]
+   ```
    - Access the app at `http://localhost:3000`.
    - Runs migrations via a separate container, then starts the built SvelteKit app with `@sveltejs/adapter-node`.
 
