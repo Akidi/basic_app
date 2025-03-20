@@ -1,5 +1,5 @@
 -- Connect to the database (assumes 'webapp' matches POSTGRES_DB in docker-compose)
-\c webapp
+\c webapp_dev
 
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
@@ -14,7 +14,7 @@ CREATE ROLE admin
   NOBYPASSRLS;
 
 -- 2. Revoke Public Privileges
-REVOKE ALL ON DATABASE webapp FROM PUBLIC;
+REVOKE ALL ON DATABASE webapp_dev FROM PUBLIC;
 REVOKE ALL ON SCHEMA public FROM PUBLIC;
 
 -- 3. Create Application Roles
@@ -64,8 +64,8 @@ CREATE ROLE auditor
   NOBYPASSRLS;
 
 -- Grant database-level privileges
-GRANT CREATE ON DATABASE webapp TO admin, developer;
-GRANT CONNECT, TEMPORARY ON DATABASE webapp TO admin, developer, api, read_only, backup, auditor;
+GRANT CREATE ON DATABASE webapp_dev TO admin, developer;
+GRANT CONNECT, TEMPORARY ON DATABASE webapp_dev TO admin, developer, api, read_only, backup, auditor;
 
 -- 4. Create Default Login Users and Associate with Roles
 CREATE ROLE app_admin LOGIN PASSWORD 'admin_pa55w0rd';

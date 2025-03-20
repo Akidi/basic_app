@@ -62,9 +62,9 @@ networks:
     name: app-network
     driver: bridge
   app-internal:
-    external: false
+    external: true
 
 volumes:
   db_data:
     driver: local
-    name: db
+    name: db.prod

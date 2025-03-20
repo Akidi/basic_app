@@ -57,14 +57,14 @@ Set-Content -Path "./db/init.prod.sql" -Value $initProdContent
 
 # Update .env.dev with dev connection string (using app_admin)
 $envDevContent = Get-Content -Path "./.env.dev" -Raw
-$envDevContent = $envDevContent -replace "DATABASE_URL=.*", "DATABASE_URL=postgresql://app_admin:$($devPasswords['app_admin'])@db:5432/webapp"
+$envDevContent = $envDevContent -replace "DATABASE_URL=.*", "DATABASE_URL=postgresql://app_admin:$($devPasswords['app_admin'])@db:5432/webapp_dev"
 Set-Content -Path "./.env.dev" -Value $envDevContent
 
 # Update ./app/.env with dev connection strings (app_admin, app_api, app_readonly)
 $envAppContent = Get-Content -Path "./app/.env" -Raw
-$envAppContent = $envAppContent -replace "DATABASE_URL=.*", "DATABASE_URL=postgresql://app_admin:$($devPasswords['app_admin'])@db:5432/webapp"
-$envAppContent = $envAppContent -replace "WRITE_DATABASE_URL=.*", "WRITE_DATABASE_URL=postgresql://app_api:$($devPasswords['app_api'])@db:5432/webapp"
-$envAppContent = $envAppContent -replace "READ_DATABASE_URL=.*", "READ_DATABASE_URL=postgresql://app_readonly:$($devPasswords['app_readonly'])@db:5432/webapp"
+$envAppContent = $envAppContent -replace "DATABASE_URL=.*", "DATABASE_URL=postgresql://app_admin:$($devPasswords['app_admin'])@db:5432/webapp_dev"
+$envAppContent = $envAppContent -replace "WRITE_DATABASE_URL=.*", "WRITE_DATABASE_URL=postgresql://app_api:$($devPasswords['app_api'])@db:5432/webapp_dev"
+$envAppContent = $envAppContent -replace "READ_DATABASE_URL=.*", "READ_DATABASE_URL=postgresql://app_readonly:$($devPasswords['app_readonly'])@db:5432/webapp_dev"
 Set-Content -Path "./app/.env" -Value $envAppContent
 
 # Update .env.prod with prod connection strings (app_admin, app_api, app_readonly)

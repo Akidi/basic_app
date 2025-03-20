@@ -16,13 +16,14 @@ services:
     command: sh -c "pnpm db:migrate && pnpm dev --host"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5173"]
-      interval: 30s
+      interval: 10s
       timeout: 10s
       retries: 5
       start_period: 10s
     restart: unless-stopped
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - app-network
       - app-internal
@@ -41,7 +42,7 @@ services:
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "postgres", "-d", "postgres"]
-      interval: 30s
+      interval: 10s
       timeout: 10s
       retries: 5
     networks:
@@ -53,10 +54,10 @@ networks:
     name: app-network
     driver: bridge
   app-internal:
-    external: false
+    external: true
 
 volumes:
   db_data:
     driver: local
-    name: db
+    name: db.dev
   node_modules:
