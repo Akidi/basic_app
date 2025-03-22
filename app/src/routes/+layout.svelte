@@ -1,6 +1,7 @@
 <script lang="ts">
 	import '../app.css';
 	import { page } from '$app/stores'; // Optional: for active link highlighting
+	import { dev } from '$app/environment';
 	import Header from '$lib/components/Header/Header.svelte';
 	let { children } = $props();
 
@@ -11,10 +12,15 @@
 	function toggleDemo() {
 		isDemoOpen = !isDemoOpen;
 	}
+
+	const title = "App Name";
 </script>
 
+<svelte:head>
+	<title>{title}{dev ? '[DEV]' : ''}</title>
+</svelte:head>
 
-<Header title="App Name" />
+<Header {title} />
 
 <!-- Navigation Menu -->
 <nav class="bg-gray-800 text-white shadow-md">
