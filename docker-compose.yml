@@ -1,5 +1,5 @@
 services:
-  app:
+  app.dev:
     image: app:dev
     container_name: app.dev
     build:
@@ -22,14 +22,14 @@ services:
       start_period: 10s
     restart: unless-stopped
     depends_on:
-      db:
+      db.dev:
         condition: service_healthy
     networks:
       - app-network
       - app-internal
     
 
-  db:
+  db.dev:
     image: postgres:17
     container_name: db.dev
     ports:
@@ -54,10 +54,12 @@ networks:
     name: app-network
     driver: bridge
   app-internal:
-    external: true
+    name: app-internal
+    driver: bridge
+    internal: true
 
 volumes:
   db_data:
     driver: local
-    name: db.dev
+    name: app.db.dev
   node_modules:
