@@ -1,7 +1,7 @@
 services:
-  app.dev:
-    image: app:dev
-    container_name: app.dev
+  basic-app.dev:
+    image: basic-app:dev
+    container_name: basic-app.dev
     build:
       context: ./app
       target: development
@@ -19,19 +19,18 @@ services:
       interval: 10s
       timeout: 10s
       retries: 5
-      start_period: 10s
     restart: unless-stopped
     depends_on:
-      db.dev:
+      basic-app.db.dev:
         condition: service_healthy
     networks:
-      - app-network
-      - app-internal
+      - basic-app.network
+      - basic-app.internal
     
 
-  db.dev:
+  basic-app.db.dev:
     image: postgres:17
-    container_name: db.dev
+    container_name: basic-app.db.dev
     ports:
       - 5432:5432
     env_file:
@@ -46,20 +45,20 @@ services:
       timeout: 10s
       retries: 5
     networks:
-      - app-network
-      - app-internal
+      - basic-app.network
+      - basic-app.internal
 
 networks:
-  app-network:
-    name: app-network
+  basic-app.network:
+    name: basic-app.network
     driver: bridge
-  app-internal:
-    name: app-internal
+  basic-app.internal:
+    name: basic-app.internal
     driver: bridge
     internal: true
 
 volumes:
   db_data:
     driver: local
-    name: app.db.dev
+    name: basic-app.db.dev
   node_modules:

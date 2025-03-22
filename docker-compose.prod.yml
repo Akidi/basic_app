@@ -1,7 +1,7 @@
 services:
-  app:
-    image: app:prod
-    container_name: app.prod
+  basic-app:
+    image: basic-app:prod
+    container_name: basic-app.prod
     build:
       context: ./app
     ports:
@@ -15,20 +15,18 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
-      start_period: 10s
     restart: unless-stopped
     depends_on:
-      - db
+      basic-app.db.prod:
+        condition: service_healthy
     networks:
-      - app-network
-      - app-internal
+      - basic-app.network
+      - basic-app.internal
     
 
-  db:
+  basic-app.db.prod:
     image: postgres:17
-    container_name: app.db
-    ports:
-      - 5432:5432
+    container_name: basic-app.db.prod 
     env_file:
       - .env.prod
     volumes:
@@ -41,32 +39,32 @@ services:
       timeout: 10s
       retries: 5
     networks:
-      - app-internal
+      - basic-app.internal
   
-  migrate:
-    image: app-migrate:prod
-    container_name: app.migrate
+  basic-app.migrate:
+    image: basic-app-migrate:prod
+    container_name: basic-app.migrate
     build:
       context: ./app
       dockerfile: Dockerfile.migrate
     env_file:
       - .env.prod
     depends_on:
-      db:
+      basic-app.db.prod:
         condition: service_healthy
     networks:
-      - app-internal
+      - basic-app.internal
 
 networks:
-  app-network:
-    name: app-network
+  basic-app.network:
+    name: basic-app.network
     driver: bridge
-  app-internal:
-    name: app-internal
+  basic-app.internal:
+    name: basic-app.internal
     driver: bridge
     internal: true
 
 volumes:
   db_data:
     driver: local
-    name: app.db.prod
+    name: basic-app.db.prod
